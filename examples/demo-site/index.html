@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Example Store — help centre</title>
+    <!-- A synthetic page written for agent-disclosure's demo: not anyone's site. -->
+  </head>
+  <body>
+    <header>
+      <h1>Example Store help centre</h1>
+      <nav>
+        <a href="/orders">Orders</a> · <a href="/legal/ai-policy">How we use AI (policy)</a>
+      </nav>
+    </header>
+    <main>
+      <p>Track an order, start a return, or ask a question.</p>
+    </main>
+    <div id="support-chat" class="chat-widget" role="complementary">
+      <button id="chat-launcher" aria-label="Open chat with our AI assistant">Chat</button>
+      <div class="chat-header">Ask our assistant</div>
+      <textarea class="chat-input" placeholder="Type your question"></textarea>
+    </div>
+    <script>
+      window.exampleChatSettings = {
+        botName: "Store Helper",
+        greeting: "Hi! I'm an automated assistant, not a person. How can I help?",
+      };
+    </script>
+    <footer><p>Services on this website use AI.</p></footer>
+  </body>
+</html>

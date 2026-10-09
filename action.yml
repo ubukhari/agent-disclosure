@@ -1,0 +1,56 @@
+name: agent-disclosure site check
+description: Check on a schedule whether a page's chat tells people they are talking to an AI (EU AI Act Art. 50(1)). A readiness check, not legal advice.
+author: agentwares
+branding:
+  icon: message-circle
+  color: blue
+
+# Runs the built CLI from this repository's committed dist/ on your own runner: no npm install,
+# no account, no network beyond the one GET of the page being checked.
+inputs:
+  url:
+    description: The page whose chat widget or assistant to check, e.g. https://example.com/
+    required: true
+  fail-on:
+    description: "`missing` fails the job when no disclosure is found on the page; `never` (default) only reports."
+    required: false
+    default: never
+
+outputs:
+  found:
+    description: true when a disclosure naming AI or a bot was found on the page, false otherwise
+    value: ${{ steps.check.outputs.found }}
+  headline:
+    description: '"disclosure found: <where>" or "no disclosure found in <what was checked>"'
+    value: ${{ steps.check.outputs.headline }}
+  report:
+    description: Path to the full JSON report
+    value: ${{ steps.check.outputs.report }}
+
+runs:
+  using: composite
+  steps:
+    - id: check
+      shell: bash
+      env:
+        DISCLOSURE_URL: ${{ inputs.url }}
+        DISCLOSURE_FAIL_ON: ${{ inputs.fail-on }}
+      run: |
+        set +e
+        report="$RUNNER_TEMP/agent-disclosure.json"
+        node "$GITHUB_ACTION_PATH/dist/cli.js" site "$DISCLOSURE_URL" --json > "$report"
+        code=$?
+        if [ "$code" -ne 0 ]; then cat "$report"; exit "$code"; fi
+        REPORT="$report" node --input-type=module -e '
+          import { readFileSync, appendFileSync } from "node:fs";
+          import { pathToFileURL } from "node:url";
+          const { renderSiteText } = await import(pathToFileURL(process.env.GITHUB_ACTION_PATH + "/dist/index.js").href);
+          const envelope = JSON.parse(readFileSync(process.env.REPORT, "utf8"));
+          const report = envelope.reports[0];
+          const text = renderSiteText(report, envelope.checked_at);
+          process.stdout.write(text);
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY, "```\n" + text + "```\n");
+          const headline = report.disclosure.headline.replace(/[\r\n]+/g, " ");
+          appendFileSync(process.env.GITHUB_OUTPUT, `found=${report.disclosure.found}\nheadline=${headline}\nreport=${process.env.REPORT}\n`);
+          if (process.env.DISCLOSURE_FAIL_ON === "missing" && !report.disclosure.found) process.exitCode = 1;
+        '

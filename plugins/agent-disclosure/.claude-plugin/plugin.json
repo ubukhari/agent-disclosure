@@ -1,0 +1,26 @@
+{
+  "name": "agent-disclosure",
+  "version": "0.1.0",
+  "description": "EU AI Act Article 50 readiness check: whether a page's chat tells people they are talking to an AI before or at the first exchange, and what machine-readable marking a generated image, audio, video or text file carries (C2PA Content Credentials, IPTC and XMP AI fields, a declared watermark, California's latent-disclosure fields). Runs npx --allow-git=root github:agentwares/agent-disclosure locally; no account, no LLM calls of its own, files never uploaded. Not legal advice.",
+  "author": {
+    "name": "agentwares",
+    "url": "https://github.com/agentwares"
+  },
+  "homepage": "https://agentwares-agentguard.vercel.app/ai-disclosure",
+  "documentationUrl": "https://github.com/agentwares/agent-disclosure#readme",
+  "repository": "https://github.com/agentwares/agent-disclosure",
+  "privacyPolicyUrl": "https://agentwares-agentguard.vercel.app/privacy",
+  "termsOfServiceUrl": "https://agentwares-agentguard.vercel.app/terms",
+  "supportUrl": "https://agentwares.vercel.app/contact",
+  "license": "MIT",
+  "icon": "./.claude-plugin/icon.png",
+  "keywords": [
+    "eu-ai-act",
+    "article-50",
+    "ai-disclosure",
+    "chatbot",
+    "c2pa",
+    "content-credentials",
+    "watermark"
+  ]
+}

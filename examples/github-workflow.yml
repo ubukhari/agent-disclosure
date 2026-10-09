@@ -1,0 +1,20 @@
+# .github/workflows/ai-disclosure.yml — check every Monday that your page's chat still tells people
+# they are talking to an AI (EU AI Act Art. 50(1)), on your own runner. A readiness check, not legal
+# advice: it reports what it found against what the article says.
+name: AI disclosure check
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  disclosure:
+    runs-on: ubuntu-latest
+    steps:
+      - id: check
+        uses: agentwares/agent-disclosure@main
+        with:
+          url: https://your-site.example/
+          fail-on: missing
+      - run: echo "${{ steps.check.outputs.headline }}"

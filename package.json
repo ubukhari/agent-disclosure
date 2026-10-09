@@ -1,0 +1,76 @@
+{
+  "name": "agent-disclosure",
+  "version": "0.1.0",
+  "description": "EU AI Act Article 50 readiness check, from outside: does your chat widget tell people they are talking to an AI before or at the first exchange, and do your generated images, audio, video and text carry machine-readable marking (C2PA Content Credentials, IPTC and XMP AI fields, a declared watermark)? Reports what was found against what the article says, with the quote. Not legal advice; no account, no LLM; files are read locally.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "agent-disclosure": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "examples",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentwares/agent-disclosure.git"
+  },
+  "homepage": "https://agentwares-agentguard.vercel.app/ai-disclosure",
+  "bugs": {
+    "url": "https://github.com/agentwares/agent-disclosure/issues"
+  },
+  "keywords": [
+    "eu-ai-act",
+    "ai-act",
+    "article-50",
+    "ai-disclosure",
+    "ai-transparency",
+    "chatbot",
+    "c2pa",
+    "content-credentials",
+    "iptc",
+    "xmp",
+    "watermark",
+    "ai-generated-content",
+    "compliance",
+    "cli"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "examples": "node scripts/examples.mjs",
+    "pretest": "pnpm run build:dist",
+    "pretypecheck": "pnpm run build:dist",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "build:dist": "tsup"
+  },
+  "packageManager": "pnpm@9.15.9",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.4.1",
+    "eslint": "^10.9.1",
+    "prettier": "^3.9.6",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.69.0",
+    "vitest": "^4.1.11"
+  }
+}

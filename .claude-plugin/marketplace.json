@@ -1,0 +1,25 @@
+{
+  "name": "agent-disclosure",
+  "description": "agent-disclosure inside Claude Code: an EU AI Act Article 50 readiness check. Does a page's chat tell people they are talking to an AI, and do generated images, audio, video and text carry machine-readable marking (C2PA, IPTC, XMP)? Reports what it finds against the law's own words; not legal advice. Open source, no account.",
+  "owner": {
+    "name": "agentwares",
+    "url": "https://github.com/agentwares"
+  },
+  "plugins": [
+    {
+      "name": "agent-disclosure",
+      "source": "./plugins/agent-disclosure",
+      "description": "EU AI Act Article 50 readiness check. /agent-disclosure:agent-disclosure runs `npx --allow-git=root github:agentwares/agent-disclosure` on a URL or a file and explains where a chat discloses that it is an AI, or what marking a generated file carries, quoting the article, without calling anything compliant.",
+      "category": "development",
+      "tags": [
+        "eu-ai-act",
+        "article-50",
+        "ai-disclosure",
+        "chatbot",
+        "c2pa",
+        "content-credentials",
+        "watermark"
+      ]
+    }
+  ]
+}
